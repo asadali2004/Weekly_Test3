@@ -1,6 +1,7 @@
 ﻿using PayRoll_System.Models;
 using PayRoll_System.Services;
 using PayRoll_System.Delegates;
+using PayRoll_System.Data;
 
 namespace PayRoll_System
 {
@@ -27,23 +28,71 @@ namespace PayRoll_System
             processor.SubscribeNotifications(NotificationService.NotifyHR);
             processor.SubscribeNotifications(NotificationService.NotifyFinance);
 
-            // Seed sample employees
-            var employees = new List<Employee>
-                {
-                    new FullTimeEmployee(employeeId: 1, name: "Alice Johnson", monthlySalary: 8000m, bonus: 500m),
-                    new FullTimeEmployee(employeeId: 2, name: "Carlos Diaz", monthlySalary: 6500m, bonus: 0m),
-                    new FullTimeEmployee(employeeId: 3, name: "Emily Clark", monthlySalary: 9200m, bonus: 1200m),
-                    new ContractEmployee(employeeId: 4, name: "Bob Smith", dailyRate: 300m, totalDaysWorked: 20),
-                    new ContractEmployee(employeeId: 5, name: "Dana Lee", dailyRate: 280m, totalDaysWorked: 22),
-                    new ContractEmployee(employeeId: 6, name: "Frank Miller", dailyRate: 350m, totalDaysWorked: 18),
-                    // Invalid sample to demonstrate validation (days > 31)
-                    new ContractEmployee(employeeId: 7, name: "Invalid Input", dailyRate: 250m, totalDaysWorked: 45),
-                };
+            // Use static EmpData stub instead of hardcoded list
+            EmpData.SeedSample(); // For quick testing you can comment out to control manually
 
-                foreach (var e in employees)
-                {
-                    processor.AddEmployee(e);
-                }
+            // Add a new employee dynamically Sample
+            EmpData.Add(new FullTimeEmployee(employeeId: 8, name: "New Employee", monthlySalary: 7500m, bonus: 300m));
+
+
+            #region Add Emp using User Input (UnComment for testing)
+                //User Input to add employees for EmpData
+                // Console.Write("\nHow many employees do you want to add? ");
+                // if (int.TryParse(Console.ReadLine(), out var count) && count > 0)
+                // {
+                //     for (int i = 1; i <= count; i++)
+                //     {
+                //         Console.WriteLine($"\nEmployee #{i}");
+
+                //         int employeeId;
+                //         while (true)
+                //         {
+                //             Console.Write("ID: ");
+                //             if (int.TryParse(Console.ReadLine(), out employeeId)) break;
+                //             Console.WriteLine("Invalid ID. Try again.");
+                //         }
+
+                //         Console.Write("Name: ");
+                //         var name = Console.ReadLine();
+                //         if (string.IsNullOrWhiteSpace(name)) name = $"Employee_{employeeId}";
+
+                //         decimal monthlySalary;
+                //         while (true)
+                //         {
+                //             Console.Write("Monthly Salary: ");
+                //             if (decimal.TryParse(Console.ReadLine(), out monthlySalary)) break;
+                //             Console.WriteLine("Invalid salary. Try again.");
+                //         }
+
+                //         decimal bonus;
+                //         while (true)
+                //         {
+                //             Console.Write("Bonus (0 if none): ");
+                //             if (decimal.TryParse(Console.ReadLine(), out bonus)) break;
+                //             Console.WriteLine("Invalid bonus. Try again.");
+                //         }
+
+                //         EmpData.Add(new FullTimeEmployee(
+                //             employeeId: employeeId,
+                //             name: name,
+                //             monthlySalary: monthlySalary,
+                //             bonus: bonus));
+
+                //         Console.WriteLine("Employee added.");
+                //     }
+                // }
+                // else
+                // {
+                //     Console.WriteLine("No employees added.");
+                // }
+                #endregion
+
+            
+            // Load employees from EmpData
+            foreach(var e in EmpData.GetAll())
+            {
+                processor.AddEmployee(e);
+            }
 
                 Console.WriteLine($"\nAdded {processor.EmployeeCount} valid employees to the system.");
 
