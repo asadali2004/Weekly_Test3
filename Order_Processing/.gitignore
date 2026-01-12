@@ -1,0 +1,39 @@
+# Build artifacts
+bin/
+obj/
+
+# VS/IDE settings
+.vs/
+.vscode/
+
+# User-specific files
+*.suo
+*.user
+*.rsuser
+*.userosscache
+*.sln.docstates
+
+# Logs and test outputs
+*.log
+TestResults/
+coverage/
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+# OS / IDE noise
+.DS_Store
+Thumbs.db
+.idea/
+
+# Temporary files
+*.tmp
+*.temp
+*.cache
+*.bak
+
+# Generated editor config files
+**/*.GeneratedMSBuildEditorConfig.editorconfig

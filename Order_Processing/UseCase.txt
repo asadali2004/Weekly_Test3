@@ -1,0 +1,163 @@
+============================================================
+Use Case 2: Online Order Processing & Status Notifications
+OOPS + Generic Collections + Delegates
+============================================================
+
+Learner Task Sheet (Questions Only)
+
+------------------------------------------------------------
+Introduction (Read the scenario and answer)
+------------------------------------------------------------
+1) List the main entities needed: Product, OrderItem, Order,
+	 Customer, Notification. Which ones must be classes?
+
+2) How will you represent OrderStatus in C# (enum or class)? Why?
+
+3) Which class should own the responsibility of changing order
+	 status? (Order itself vs OrderService) Explain.
+
+4) What information should be included when notifying a customer
+	 about status change?
+
+5) How will you ensure that adding new statuses in future does not
+	 break your code badly?
+
+6) Which generic collections will you use to store: products, orders,
+	 and order status history? Justify each choice.
+
+------------------------------------------------------------
+Objective (What you must achieve)
+------------------------------------------------------------
+7)  Design and implement classes to represent Products, Orders, and
+		Order Items using OOPS principles.
+
+8)  Store products and orders using generic collections and perform
+		operations like add/search/update.
+
+9)  Implement a status change workflow and record every status change
+		to an in-memory history collection.
+
+10) Use a delegate (custom delegate OR Action<Order, OrderStatus>) to
+		notify multiple subscribers when status changes.
+
+11) Demonstrate at least two different notification subscribers
+		(CustomerNotification and LogisticsNotification).
+
+12) Print an order summary and a full status history timeline for each
+		order.
+
+------------------------------------------------------------
+Requirements (Constraints you must follow)
+------------------------------------------------------------
+13) No database, no file storage, no web API. Console app only.
+
+14) Must use OOPS: encapsulation, composition (Order has OrderItems),
+		and polymorphism where meaningful.
+
+15) Must use generic collections (List<T> and at least one of:
+		Dictionary<,>, Queue<T>).
+
+16) Must use delegates for notifications. Do NOT use events for this
+		assignment.
+
+17) Do NOT create custom generic classes. Use only built-in generic
+		collections.
+
+18) Include at least: 5 products, 3 customers, and 4 orders with
+		multiple items (sample data).
+
+19) Validate business rules: cannot ship before paid; cannot deliver
+		before shipped; cancelled orders cannot progress.
+
+20) Output must clearly show each status change and each delegate
+		notification.
+
+------------------------------------------------------------
+Use Cases (Answer/Design per row)
+------------------------------------------------------------
+UC-1: Load products and create orders
+	- OOPS Design: Model Product and OrderItem. Mandatory fields?
+		What should be private vs public properties?
+	- Collections: Which collection stores products for quick lookup by
+		id? Which collection stores orders? Why?
+	- Delegate: Not needed here. If added, what would it notify
+		(order created)?
+	- Expected Output: Message printed when an order is created
+		successfully.
+
+UC-2: Calculate order total (subtotal, discount, tax)
+	- OOPS Design: Where should total calculation live (Order vs
+		PricingService)? Explain SRP.
+	- Collections: If discounts vary by category, which collection would
+		store discount rules efficiently?
+	- Delegate: Could a delegate plug different pricing strategies?
+		Provide a possible signature.
+	- Expected Output: Lines proving total calculation is correct for at
+		least one sample order.
+
+UC-3: Change order status with rule validation
+	- OOPS Design: Enforce valid transitions (Created→Paid→Packed→
+		Shipped→Delivered). Where will validation code live?
+	- Collections: Store status history (List<OrderStatusLog>). Fields
+		in each log entry?
+	- Delegate: On status change, what arguments should be sent?
+		(OrderId? OldStatus? NewStatus?)
+	- Expected Output: Clear message for invalid transition attempt
+		(e.g., Ship before Pay).
+
+UC-4: Notify customer and logistics (multicast delegate)
+	- OOPS Design: What should CustomerNotification do? What should
+		LogisticsNotification do? Keep both independent.
+	- Collections: Store notification messages for audit? Which
+		collection and why?
+	- Delegate: Attach 2+ methods to the same delegate; ensure all run
+		even if one fails (design question).
+	- Expected Output: Messages that should appear after status changes
+		to Shipped.
+
+UC-5: Print order summary + timeline
+	- OOPS Design: Which class prints reports? How to separate reporting
+		from business logic?
+	- Collections: Group and print orders per customer using collections
+		(e.g., Dictionary<CustomerId, List<Order>>).
+	- Delegate: Is a delegate needed here? If yes, propose a
+		'ReportGenerated' callback. If no, justify.
+	- Expected Output: Final output includes item list, totals, current
+		status, and full history.
+
+------------------------------------------------------------
+Expected Results (Program should demonstrate)
+------------------------------------------------------------
+21) Orders contain multiple items (composition) and totals calculated
+		correctly from collections.
+
+22) Status change rules prevent invalid transitions with clear error
+		messages.
+
+23) Every status change recorded into a generic collection history and
+		printed as a timeline.
+
+24) Delegate-based notifications call both customer and logistics
+		subscribers (multicast).
+
+25) Final report lists each order with totals, current status, and
+		full status history.
+
+------------------------------------------------------------
+Conclusion (Reflection)
+------------------------------------------------------------
+26) Which class best demonstrates encapsulation? Explain using one
+		property and one validation rule.
+
+27) How did generic collections simplify implementation vs arrays?
+		Give two examples.
+
+28) Benefits of delegates for notifications. How to add a new target
+		(SMS) without rewriting core logic?
+
+29) If scale increases to 10,000 orders, which collection choices
+		might you revisit and why?
+
+30) One improvement if events were allowed instead of delegates?
+
+============================================================
