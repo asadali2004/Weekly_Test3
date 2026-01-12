@@ -1,0 +1,166 @@
+============================================================
+Use Case 1: Payroll & Salary Processing
+OOPS + Generic Collections + Delegates
+============================================================
+
+Learner Task Sheet (Questions Only)
+
+------------------------------------------------------------
+Introduction (Read the scenario and answer)
+------------------------------------------------------------
+1) Identify the real-world objects (entities). Which ones should
+	 become C# classes?
+
+2) What different behaviors do Full-Time and Contract employees have?
+	 How can you model this using inheritance or polymorphism?
+
+3) What data should be encapsulated inside the Employee class
+	 (private fields/properties)? List at least 6 fields.
+
+4) Which actions belong to a 'service' class (e.g., PayrollProcessor)
+	 rather than inside the Employee class? Why?
+
+5) Where will you store employees in memory? Which generic collection
+	 is best and why (List<T> vs Dictionary<,>)?
+
+6) What does it mean to 'notify' HR and Finance? What information
+	 should be sent in the notification?
+
+7) What problems occur if you hardcode notifications inside the payroll
+	 method instead of using delegates?
+
+------------------------------------------------------------
+Objective (What you must achieve)
+------------------------------------------------------------
+8)  Design and implement a base class Employee and at least two derived
+		classes to represent Full-Time and Contract employees.
+
+9)  Use polymorphism to calculate salary without using if/else checks
+		on employee type in the payroll loop.
+
+10) Use at least one generic collection to store employees and at least
+		one generic collection to store payroll results (e.g., payslips).
+
+11) Define a delegate type (or use Action<T>) to represent a
+		'SalaryProcessed' callback and invoke it after each employee salary
+		is processed.
+
+12) Demonstrate subscribing multiple methods (HRNotification and
+		FinanceNotification) to the same delegate (multicast delegate).
+
+13) Print a clear payroll summary report in the console (totals,
+		per-employee breakdown, counts by type).
+
+------------------------------------------------------------
+Requirements (Constraints you must follow)
+------------------------------------------------------------
+14) Do NOT use any database, files, or external APIs. Keep everything
+		in memory.
+
+15) Use OOPS: class, inheritance, encapsulation, and runtime
+		polymorphism (virtual/override).
+
+16) Use generic collections (List<T> and at least one of:
+		Dictionary<,>, Queue<T>, Stack<T>).
+
+17) Use delegates for notifications (custom delegate OR Action<PaySlip>). Do
+		NOT use events for this assignment.
+
+18) Do NOT create your own generic types (no class MyBox<T>). Only use
+		built-in generic collections.
+
+19) Input can be hardcoded sample data (at least 6 employees) OR taken
+		from console menu. Mention your choice in comments.
+
+20) Implement validation rules (e.g., salary cannot be negative,
+		working days must be 0–31). Decide what to do on invalid input.
+
+21) Output must include: employee id, name, type, gross, deductions,
+		net, and notification message.
+
+------------------------------------------------------------
+Use Cases (Answer/Design per row)
+------------------------------------------------------------
+UC-1: Create and store employees
+	- OOPS Design: Base class name and common properties. Which
+		properties should be abstract/virtual?
+	- Collections: Which collection will store employees? If using
+		Dictionary<int,Employee>, what is the key and why?
+	- Delegate: Not needed here. If used, what would it notify?
+	- Expected Output: Message after adding 6 employees.
+
+UC-2: Calculate salary using polymorphism
+	- OOPS Design: Which method should be virtual/abstract (e.g.,
+		CalculatePay)? What will derived classes override?
+	- Collections: Where do you store calculated payslips? List<PaySlip>
+		or Dictionary<int,PaySlip>—which is better and why?
+	- Delegate: Invoke inside CalculatePay or after payslip creation in
+		PayrollProcessor? Justify.
+	- Expected Output: Lines showing gross/net for each employee during
+		processing.
+
+UC-3: Apply deductions and bonus rules
+	- OOPS Design: Place tax/insurance deduction logic in Employee,
+		derived classes, or separate class? Explain.
+	- Collections: If quick lookup of deduction rates by employee type is
+		needed, which collection fits best?
+	- Delegate: If deductions change, how could delegates help plug
+		different deduction calculators? (Design question)
+	- Expected Output: Show to prove deductions were applied correctly.
+
+UC-4: Notify HR and Finance (multicast delegate)
+	- OOPS Design: What information must notification receive? (Employee
+		+ PaySlip?) Define a clean model.
+	- Collections: Store notifications for later report? If yes, which
+		collection and why?
+	- Delegate: Define the signature. Which methods subscribe? How will
+		you ensure both are called?
+	- Expected Output: Notification messages for HR and Finance after
+		processing one employee.
+
+UC-5: Generate payroll summary report
+	- OOPS Design: Which class is responsible for reporting? Keep Single
+		Responsibility Principle.
+	- Collections: Compute totals (total payout, average salary, count by
+		employee type) from List<PaySlip>.
+	- Delegate: Needed for reporting? If yes, propose a meaningful
+		callback. If no, explain.
+	- Expected Output: Final summary section printed at the end.
+
+------------------------------------------------------------
+Expected Results (Program should demonstrate)
+------------------------------------------------------------
+22) Employee is a base type and derived types override salary
+		calculation correctly (proof via output).
+
+23) Employees are processed in a loop using a generic collection
+		without checking types using if/else.
+
+24) Delegate invokes multiple subscriber methods for every processed
+		employee (HR + Finance).
+
+25) Summary: total employees processed, totals by type, total payout,
+		and highest net salary employee.
+
+26) Graceful handling of at least one invalid input (e.g., negative
+		salary) using exception handling or validation messages.
+
+------------------------------------------------------------
+Conclusion (Reflection questions)
+------------------------------------------------------------
+27) Which part of your design demonstrates polymorphism most clearly?
+		Explain with an example call.
+
+28) Why choose List<T> or Dictionary<,> for employees? What trade-off
+		did you accept?
+
+29) What problem did delegates solve compared to directly calling HR/
+		Finance methods?
+
+30) If the company adds a new employee type (Intern), what exact
+		classes/methods should you modify?
+
+31) If HR notification changes (Teams/email), how would your
+		delegate-based design help?
+
+============================================================

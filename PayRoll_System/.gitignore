@@ -1,0 +1,36 @@
+# Build artifacts
+bin/
+obj/
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+
+# User-specific files
+*.suo
+*.user
+*.rsuser
+*.userosscache
+*.sln.docstates
+
+# Logs and test outputs
+*.log
+TestResults/
+coverage/
+
+# NuGet packages
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+# OS / IDE noise
+.DS_Store
+Thumbs.db
+.idea/
+
+# Temporary files
+*.tmp
+*.temp
+*.cache
+*.bak
