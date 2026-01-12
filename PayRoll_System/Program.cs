@@ -34,9 +34,8 @@ namespace PayRoll_System
             // Add a new employee dynamically Sample
             EmpData.Add(new FullTimeEmployee(employeeId: 8, name: "New Employee", monthlySalary: 7500m, bonus: 300m));
 
-
             #region Add Emp using User Input (UnComment for testing)
-                //User Input to add employees for EmpData
+                // User Input to add employees for EmpData
                 // Console.Write("\nHow many employees do you want to add? ");
                 // if (int.TryParse(Console.ReadLine(), out var count) && count > 0)
                 // {
@@ -87,7 +86,6 @@ namespace PayRoll_System
                 // }
                 #endregion
 
-            
             // Load employees from EmpData
             foreach(var e in EmpData.GetAll())
             {
