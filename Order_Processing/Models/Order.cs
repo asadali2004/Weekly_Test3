@@ -7,17 +7,15 @@ namespace Order_Processing.Models
     {
         public int OrderId { get; } // Unique identifier for the order
         public Customer Customer { get; } // Customer who placed the order
-        private List<OrderItem> Items { get; } // List of items in the order
+        private List<OrderItem> Items { get; } = new List<OrderItem>(); // List of items in the order
         public OrderStatus CurrentStatus { get; private set; } // Current status of the order
-        private List<OrderStatusLog> StatusHistory { get; } // History of status changes
+        private List<OrderStatusLog> StatusHistory { get; } = new List<OrderStatusLog>(); // History of status changes
 
         // Constructor
         public Order(int orderId, Customer customer)
         {
             OrderId = orderId;
             Customer = customer;
-            Items = new List<OrderItem>();
-            StatusHistory = new List<OrderStatusLog>();
             CurrentStatus = OrderStatus.Created; // Default status
             StatusHistory.Add(new OrderStatusLog(CurrentStatus, DateTime.Now));
         }

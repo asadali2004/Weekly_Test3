@@ -3,6 +3,7 @@ using Order_Processing.Services;
 using Order_Processing.Notifications;
 using Order_Processing.Reports;
 using Order_Processing.Enums;
+using Order_Processing.Models;
 
 namespace Order_Processing
 {
@@ -12,8 +13,8 @@ namespace Order_Processing
         // Entry point of the application
 		public static void Main(string[] args)
 		{
-			var (products, customers) = SampleDataSeeder.SeedCatalog(); // Seed products and customers
-			var orders = SampleDataSeeder.SeedOrders(products, customers); // Seed orders with items
+			SampleDataSeeder.SeedCatalog(); // Seed static repositories
+			SampleDataSeeder.SeedOrdersFromRepos(); // Build orders using static repos
 
 			var service = new OrderService(); // Initialize order service
 
@@ -27,8 +28,8 @@ namespace Order_Processing
 				Console.WriteLine($"[Delegate] Order {orderId}: {oldStatus} -> {newStatus}");
 			};
 
-			// Register seeded orders (with items) in service
-			foreach (var o in orders)
+			// Register seeded orders (with items) in service from static repository
+			foreach (var o in OrderRepository.GetAll().Values)
 			{
 				service.AddOrder(o);
 			}

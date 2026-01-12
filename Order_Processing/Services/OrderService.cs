@@ -1,3 +1,5 @@
+using System.Net;
+using System.Runtime.CompilerServices;
 using Order_Processing.Enums;
 using Order_Processing.Models;
 using Order_Processing.Notifications;
@@ -7,7 +9,7 @@ namespace Order_Processing.Services
     // Service class to manage orders and their status changes 
     public class OrderService
     {
-        private readonly Dictionary<int, Order> _orders = new Dictionary<int, Order>(); // In-memory storage of orders by ID
+        private static readonly Dictionary<int, Order> _orders = new Dictionary<int, Order>(); // Static in-memory storage of orders by ID (shared across service instances)
         public delegate void StatusChangedDelegate(int orderId, OrderStatus oldStatus, OrderStatus newStatus); // Delegate for status change notifications
         public StatusChangedDelegate? StatusChanged; // Event for status change notifications
         private readonly List<INotificationSubscriber> _subscribers = new List<INotificationSubscriber>(); // List of notification subscribers
